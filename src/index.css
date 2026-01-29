@@ -1,0 +1,200 @@
+@import "tailwindcss";
+
+
+@custom-variant dark (&:is([data-theme="dark"] *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-accent-blue: #58a6ff;
+  --color-accent-green: #3fb950;
+  --color-accent-purple: #a371f7;
+  --color-accent-yellow: #e3b341;
+  --color-accent-red: #f85149;
+  --color-accent-gray: #8b949e;
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: rgba(255, 255, 255, 0.9);
+  --foreground: #1f2328;
+  --card: rgba(246, 248, 250, 0.95);
+  --card-foreground: #1f2328;
+  --primary: #0969da;
+  --primary-foreground: #ffffff;
+  --secondary: rgba(0, 0, 0, 0.04);
+  --secondary-foreground: #1f2328;
+  --muted: rgba(0, 0, 0, 0.02);
+  --muted-foreground: #656d76;
+  --accent: rgba(9, 105, 218, 0.1);
+  --accent-foreground: #0969da;
+  --destructive: #cf222e;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.06);
+  --ring: #0969da;
+  --cal-1: #9be9a8;
+  --cal-2: #40c463;
+  --cal-3: #30a14e;
+  --cal-4: #216e39;
+}
+
+[data-theme="dark"] {
+  --background: rgba(30, 30, 30, 0.85);
+  --foreground: #e6edf3;
+  --card: rgba(20, 20, 20, 0.9);
+  --card-foreground: #e6edf3;
+  --primary: #58a6ff;
+  --primary-foreground: #0d1117;
+  --secondary: rgba(255, 255, 255, 0.04);
+  --secondary-foreground: #e6edf3;
+  --muted: rgba(255, 255, 255, 0.02);
+  --muted-foreground: #7d8590;
+  --accent: rgba(88, 166, 255, 0.1);
+  --accent-foreground: #58a6ff;
+  --destructive: #f85149;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.06);
+  --ring: #58a6ff;
+  --cal-1: #0e4429;
+  --cal-2: #006d32;
+  --cal-3: #26a641;
+  --cal-4: #39d353;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body, #root {
+    background: transparent;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--foreground);
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Markdown prose styles */
+.prose {
+  color: var(--foreground);
+  line-height: 1.6;
+}
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  font-weight: 600;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  color: var(--foreground);
+}
+.prose h1 { font-size: 1.5em; }
+.prose h2 { font-size: 1.25em; }
+.prose h3 { font-size: 1.1em; }
+.prose h4 { font-size: 1em; }
+.prose p {
+  margin-bottom: 0.75em;
+}
+.prose a {
+  color: var(--primary);
+  text-decoration: none;
+}
+.prose a:hover {
+  text-decoration: underline;
+}
+.prose strong {
+  font-weight: 600;
+  color: var(--foreground);
+}
+.prose code {
+  background: var(--muted);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+}
+.prose pre {
+  background: var(--muted);
+  padding: 1em;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: 0.85em;
+}
+.prose ul, .prose ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.75em;
+}
+.prose li {
+  margin-bottom: 0.25em;
+}
+.prose blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--muted-foreground);
+  font-style: italic;
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5em 0;
+}
+.prose img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+}
+.prose th, .prose td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+.prose th {
+  background: var(--muted);
+  font-weight: 600;
+}
+.prose details {
+  margin: 0.75em 0;
+}
+.prose summary {
+  cursor: pointer;
+  font-weight: 500;
+}
+.prose details[open] summary {
+  margin-bottom: 0.5em;
+}
