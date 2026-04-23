@@ -2,54 +2,47 @@
 
 ![Gitbar Demo](.github/assets/demo.gif)
 
-A personal GitHub dashboard that lives in your menubar. One glance, everything you need.
+I kept bouncing between GitHub tabs for PRs, issues, and activity. Wanted one menubar window for all of it. So I built this.
 
-## Why
+Menubar GitHub dashboard built with Tauri.
 
-I got tired of context-switching between GitHub tabs. PRs here, issues there, notifications somewhere else. Every time I wanted to check "what needs my attention?" I'd open 4 tabs and lose 5 minutes.
-
-So I built this. A single window that shows:
-- **PRs** - yours, assigned, review requested, mentioned
-- **Issues** - yours, assigned, mentioned
-- **Repos** - owned + contributed, sorted by activity
-- **Activity** - contribution graph, stars, forks, recent events
-
-## Features
+## Layout
 
 2-panel layout with resizable sections:
-1. **Left** - Stats, contribution calendar, activity feed (mine/others), repositories (mine/contributed), split into two resizable panes
-2. **Right** - PR list and issue list in resizable panes, click into detail view with full markdown body, comments, reviews
 
-All lists use progressive rendering (IntersectionObserver). Only visible items are rendered, more load on scroll.
+- **Left**: stats, contribution calendar, activity feed (mine/others), repositories (mine/contributed), split into two resizable panes
+- **Right**: PR list and issue list in resizable panes. Click in for detail view with full markdown body, comments, reviews.
 
 PRs show diff stats, reviewers, approval status, branch info. Issues show reactions, linked branches, task progress. Repos show stars, forks, language, topics, visibility.
 
 Privacy toggle (lock icon) hides private repos, PRs, and issues across all panels. Useful for screenshots and livestreams.
 
-Light/dark theme. Persists to localStorage.
+Light/dark theme, persisted to localStorage.
 
 ## Performance
 
 3 parallel GraphQL queries + REST events, not one blocking call:
-1. **Viewer** - repos, stats, calendar
-2. **PR searches** - created, review requested, assigned, mentioned
-3. **Issue searches** - created, assigned, mentioned
 
-Progressive rendering: viewer data (left panel) renders as soon as it arrives. PR/issue data fills in when searches complete. Activity loads last in the background.
+1. **Viewer**: repos, stats, calendar
+2. **PR searches**: created, review requested, assigned, mentioned
+3. **Issue searches**: created, assigned, mentioned
 
-- **Stale-while-revalidate** - cached data renders instantly, fresh data loads behind the scenes
-- **localStorage persistence** - survives app restarts, instant cold start
-- **30-minute cache TTL** - subsequent opens within window are instant (no network)
-- **Username persisted** - events query fires in parallel on first load instead of waiting for viewer response
+Progressive rendering: viewer data renders as soon as it arrives. PR/issue data fills in when searches complete. Activity loads last in the background.
+
+- Stale-while-revalidate: cached data renders instantly, fresh data loads behind the scenes
+- localStorage persistence: survives app restarts, instant cold start
+- 30-minute cache TTL: subsequent opens within window are instant (no network)
+- Username persisted: events query fires in parallel on first load instead of waiting for viewer response
+- IntersectionObserver: only visible items rendered, more load on scroll
 
 ## Stack
 
-- **Tauri v2** - native wrapper, ~5MB binary
-- **React 19** - UI
-- **Vite 7** - build
-- **Tailwind v4** - styling
-- **shadcn/ui** - scroll area, avatar, badge, button
-- **react-resizable-panels** - draggable panel layout
+- Tauri v2 (native wrapper, ~5MB binary)
+- React 19
+- Vite 7
+- Tailwind v4
+- shadcn/ui (scroll area, avatar, badge, button)
+- `react-resizable-panels`
 
 ## Prerequisites
 
@@ -60,14 +53,9 @@ Progressive rendering: viewer data (left panel) renders as soon as it arrives. P
 ## Setup
 
 ```bash
-# install deps
-bun install
-
-# dev mode
-bun run tauri dev
-
-# build
-bun run tauri build
+bun install              # install deps
+bun run tauri dev        # dev mode
+bun run tauri build      # build
 ```
 
 Uses `gh auth token` to get a token at runtime. No env vars needed.
